@@ -3,11 +3,12 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const passport = require("passport");
 const User = require("./models/user");
 const session = require("express-session");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 
 //require routes
 const index = require("./routes/index");
@@ -24,6 +25,7 @@ mongoose.connect("mongodb://localhost:27017/surf-shop", {
   useNewUrlParser: true
 });
 
+// connect DB
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -36,9 +38,10 @@ app.set("view engine", "ejs");
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(methodOverride("_method"));
 
 // Configure passport and Sessions
 app.use(
