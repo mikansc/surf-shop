@@ -1,6 +1,6 @@
 <h1>Edit post: <%= post.title %></h1>
 
-<form action="/posts/<%=post.id%>?_method=PUT" method="POST">
+<form action="/posts/<%=post.id%>?_method=PUT" method="POST" id="postEditForm" enctype="multipart/form-data">
   <div>
     <input type="text" name="post[title]" id="" value="<%= post.title %>" />
   </div>
@@ -8,19 +8,38 @@
     <input type="text" name="post[price]" id="" value="<%= post.price %>" />
   </div>
   <div>
-    <textarea name="post[description]" cols="30" rows="10">
-<%= post.description %></textarea
-    >
+    <input type="file" id="imageUpload" name="images" accept="images/*" multiple />
+    <div>
+      <% post.images.forEach((image, i) =>{ %>
+      <img src="<%=image.url %>" alt="Surfboard Image" width="100px" />
+      <label for="image<%= i %>">Delete?</label>
+      <input type="checkbox" class="imageDeleteCheckbox" name="deleteImages[]" id="image<%= i %>"
+        value="<%= image.public_id %>" />
+      <% }) %>
+    </div>
   </div>
   <div>
-    <input
-      type="text"
-      name="post[location]"
-      id=""
-      value="<%= post.location %>"
-    />
+    <textarea name="post[description]"><%= post.description %></textarea>
+  </div>
+  <div>
+    <input type="text" name="post[location]" value="<%= post.location %>" />
   </div>
   <div>
     <input type="submit" value="Edit" />
   </div>
 </form>
+<script>
+  let postEditform = document.getElementById("postEditForm");
+  postEditform.addEventListener("submit", function (event) {
+    let imageUploads = document.getElementById("imageUpload").files.length;
+    let existingImgs = document.querySelectorAll(".imageDeleteCheckbox").length;
+    let imgDeletions = document.querySelectorAll(".imageDeleteCheckbox:checked").length;
+    debugger
+    let newTotal = existingImgs - imgDeletions + imageUploads;
+    if (newTotal > 4) {
+      event.preventDefault();
+      let removalAmt = newTotal - 4;
+      alert(`You need to remove at least ${removalAmt} more image${removalAmt === 1 ? "" : "s"}`);
+    }
+  });
+</script>
