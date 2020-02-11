@@ -1,8 +1,7 @@
 const Post = require("../models/post");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const geocodingClient = mbxGeocoding({
-  accessToken:
-    "pk.eyJ1IjoibWljaGFlbG5zYyIsImEiOiJjazZhbTVhbngwczZkM2tvYmcwbXh0Ymg3In0.u3DHnRFp80yQGB_hX9Vcdw"
+  accessToken: process.env.MAPBOX_TOKEN
 });
 const cloudinary = require("cloudinary");
 cloudinary.config({
@@ -50,7 +49,14 @@ module.exports = {
 
   // POST Show
   async postShow(req, res, next) {
-    let post = await Post.findById(req.params.id);
+    let post = await Post.findById(req.params.id).populate({
+      path: "reviews",
+      options: { sort: { _id: -1 } },
+      populate: {
+        path: "author",
+        model: "User"
+      }
+    });
     res.render("posts/show", {
       post
     });
@@ -115,6 +121,7 @@ module.exports = {
     //save the updated post into the db
     post.save();
     //redirect to show page
+    req.session.success = "Post Updated Successfully";
     res.redirect(`/posts/${post.id}`);
   },
 
@@ -125,6 +132,7 @@ module.exports = {
       await cloudinary.v2.uploader.destroy(image.public_id);
     }
     await post.remove();
+    req.session.success = "Post deleted Successfully";
     res.redirect("/posts");
   }
 };

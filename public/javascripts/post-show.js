@@ -23,3 +23,20 @@ new mapboxgl.Marker(el)
 
 // code from the next step will go here!
 console.log(post);
+
+// toggle edit review form
+
+let toggleEdit = document.querySelectorAll(".toggle-edit-form");
+for (let i = 0; i < toggleEdit.length; i++) {
+  toggleEdit[i].addEventListener("click", function() {
+    // Toggle the edit button text on click
+    this.textContent === "Edit"
+      ? (this.textContent = "Cancel")
+      : (this.textContent = "Edit");
+    // toggle visibility of the edit review form
+    let editForm = this.nextElementSibling;
+    editForm.style.display !== "block"
+      ? (editForm.style.display = "block")
+      : (editForm.style.display = "none");
+  });
+}

@@ -23,7 +23,7 @@ const app = express();
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
-mongoose.connect("mongodb://localhost:27017/surf-shop-mapbox", {
+mongoose.connect("mongodb://localhost:27017/surf-shop", {
   useNewUrlParser: true
 });
 const db = mongoose.connection;
@@ -66,6 +66,11 @@ passport.deserializeUser(User.deserializeUser());
 
 // set local variables middleware
 app.use(function(req, res, next) {
+  req.user = {
+    _id: "5e429175222d2522ec8312c1",
+    username: "mika"
+  };
+  res.locals.currentUser = req.user;
   //set default title
   res.locals.title = "Surf Shop";
   //set success flash message
