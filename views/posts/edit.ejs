@@ -9,10 +9,22 @@
   enctype="multipart/form-data"
 >
   <div>
-    <input type="text" name="post[title]" id="" value="<%= post.title %>" />
+    <input
+      type="text"
+      name="post[title]"
+      id=""
+      value="<%= post.title %>"
+      required
+    />
   </div>
   <div>
-    <input type="text" name="post[price]" id="" value="<%= post.price %>" />
+    <input
+      type="text"
+      name="post[price]"
+      id=""
+      value="<%= post.price %>"
+      required
+    />
   </div>
   <div>
     <input
@@ -37,10 +49,17 @@
     </div>
   </div>
   <div>
-    <textarea name="post[description]"><%= post.description %></textarea>
+    <textarea name="post[description]" required>
+<%= post.description %></textarea
+    >
   </div>
   <div>
-    <input type="text" name="post[location]" value="<%= post.location %>" />
+    <input
+      type="text"
+      name="post[location]"
+      value="<%= post.location %>"
+      required
+    />
   </div>
   <div>
     <input type="submit" value="Edit" />
