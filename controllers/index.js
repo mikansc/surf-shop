@@ -13,6 +13,12 @@ module.exports = {
       title: "Surf Shop - Home"
     });
   },
+
+  // GET /register ROUTE
+  async getRegister(req, res, next) {
+    res.render("register", { title: "Surfshop - Register" });
+  },
+
   // POST /register ROUTE
   async postRegister(req, res, next) {
     const newUser = new User({
@@ -20,8 +26,20 @@ module.exports = {
       email: req.body.email,
       image: req.body.image
     });
-    await User.register(newUser, req.body.password);
-    res.redirect("/");
+
+    let user = await User.register(newUser, req.body.password);
+    req.login(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      req.session.success = `Welcome to Surf Shop, ${newUser.username}!`;
+      res.redirect("/");
+    });
+  },
+
+  // GET /login ROUTE
+  async getLogin(req, res, next) {
+    res.render("login", { title: "Surfshop - Login" });
   },
 
   // POST /login ROUTE
