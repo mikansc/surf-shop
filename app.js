@@ -23,11 +23,11 @@ const reviews = require("./routes/reviews");
 const app = express();
 
 // connect DB
-mongoose.set("useFindAndModify", false);
-mongoose.set("useCreateIndex", true);
-mongoose.set("useUnifiedTopology", true);
 mongoose.connect("mongodb://localhost:27017/surf-shop", {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true
 });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));

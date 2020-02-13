@@ -55,6 +55,7 @@ module.exports = {
 
   // GET /login ROUTE
   async getLogin(req, res, next) {
+    if (req.isAuthenticated()) return res.redirect("/");
     res.render("login", { title: "Surfshop - Login" });
   },
 

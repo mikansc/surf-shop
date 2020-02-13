@@ -24,6 +24,7 @@
   <% }) %>
 </div>
 <div id="map"></div>
+<% if (currentUser && post.author.equals(currentUser._id)){ %>
 <div>
   <a href="/posts/<%= post.id %>/edit"> <button>Edit post</button></a>
 </div>
@@ -32,7 +33,9 @@
     <input type="submit" value="Delete" />
   </form>
 </div>
-<h2>Create a Reviesw</h2>
+<% } %>
+
+<h2>Create a Review</h2>
 <form action="/posts/<%= post.id%>/reviews" method="post">
   <textarea name="review[body]" id="" required></textarea>
   <fieldset class="starability-basic">
@@ -68,11 +71,7 @@
   <% if(review.author.equals(currentUser._id)) { %>
 </div>
 <button class="toggle-edit-form">Edit</button>
-<form
-  action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=PUT"
-  method="POST"
-  class="edit-review-form"
->
+<form action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=PUT" method="POST" class="edit-review-form">
   <textarea name="review[body]" id="" required><%= review.body %></textarea>
   <fieldset class="starability-basic">
     <legend>Rating:</legend>
@@ -102,10 +101,7 @@
   let reviewRate = document.getElementById("edit-rate<%= review.rating %>");
   reviewRate.checked = true;
 </script>
-<form
-  action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=DELETE"
-  method="POST"
->
+<form action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=DELETE" method="POST">
   <input type="submit" value="Delete" />
 </form>
 <% } %>
