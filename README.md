@@ -4,7 +4,7 @@
 
 Surf shop exercises from Udemy course "Code With Node"
 
-> > > > PT-br
+> PT-br
 
 Este projeto é apresentado durante o curso "code with node" da plataforma Udemy.
 
