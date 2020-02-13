@@ -132,7 +132,7 @@ module.exports = {
       20
     )}...</p>`;
     //save the updated post into the db
-    post.save();
+    await post.save();
     //redirect to show page
     req.session.success = "Post Updated Successfully";
     res.redirect(`/posts/${post.id}`);

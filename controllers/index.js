@@ -2,6 +2,7 @@ const User = require("../models/user");
 const Post = require("../models/post");
 const passport = require("passport");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
+const util = require('util');
 
 module.exports = {
   // GET /
@@ -28,7 +29,7 @@ module.exports = {
     // error handler for the MongoDB database error
     try {
       const user = await User.register(new User(req.body), req.body.password);
-      req.login(user, function(err) {
+      req.login(user, function (err) {
         if (err) {
           return next(err);
         }
@@ -56,6 +57,7 @@ module.exports = {
   // GET /login ROUTE
   async getLogin(req, res, next) {
     if (req.isAuthenticated()) return res.redirect("/");
+    if (req.query.returnTo) req.session.redirectTo = req.headers.referer;
     res.render("login", { title: "Surfshop - Login" });
   },
 
@@ -77,5 +79,24 @@ module.exports = {
   getLogout(req, res, next) {
     req.logout();
     res.redirect("/");
+  },
+
+  // GET /profile ROUTE
+  async getProfile(req, res, next) {
+    const posts = await Post.find().where('author').equals(req.user._id).limit(10).exec();
+    res.render('profile', { posts, title: "Surf Shop User Profile" })
+  },
+
+  //POST /profile ROUTE
+  async updateProfile(req, res, next) {
+    const { email, username } = req.body;
+    const { user } = res.locals;
+    if (username) user.username = username;
+    if (email) user.email = email;
+    await user.save();
+    const login = util.promisify(req.login.bind(req));
+    await login(user);
+    req.session.success = "Profile successfully updated!";
+    res.redirect('/profile');
   }
 };

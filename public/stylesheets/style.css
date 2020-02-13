@@ -27,3 +27,12 @@ li {
   display: inline;
   padding: 5px;
 }
+
+.color-green {
+  color: green;
+}
+
+.color-red {
+  color: red;
+}
+
