@@ -3,7 +3,7 @@ const Post = require("./models/post");
 const cities = require("./cities");
 
 async function seedPosts() {
-  await Post.remove({});
+  await Post.deleteMany({});
   for (const i of new Array(600)) {
     const random1000 = Math.floor(Math.random() * 1000);
     const title = faker.commerce.productName();
@@ -23,7 +23,12 @@ async function seedPosts() {
       }
     };
     let post = new Post(postData);
-    post.properties.description = `<strong><a href="/posts/${post._id}">${title}</a></strong><p>${post.location}</p><p>${description.substring(0,20)}...</p>`;
+    post.properties.description = `<strong><a href="/posts/${
+      post._id
+    }">${title}</a></strong><p>${post.location}</p><p>${description.substring(
+      0,
+      20
+    )}...</p>`;
     await post.save();
   }
   console.log("600 new posts created");

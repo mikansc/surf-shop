@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   name: String,
   image: String,
-  email: String
+  email: { type: String, unique: true, require: true }
 });
 
 UserSchema.plugin(passportLocalMongoose);

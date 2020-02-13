@@ -3,7 +3,7 @@
 <form action="/register" method="post">
   <div>
     <label for="username">Username:</label>
-    <input type="text" name="username" placeholder="username" id="username" required />
+    <input type="text" name="username" placeholder="username" id="username" value="<%= username %>" required />
   </div>
   <div>
     <label for="password">Password:</label>
@@ -11,7 +11,7 @@
   </div>
   <div>
     <label for="email">Email:</label>
-    <input type="email" name="email" placeholder="email" id="email" required />
+    <input type="email" name="email" placeholder="email" id="email" value="<%= email %>" required />
   </div>
   <div>
     <label for="image">Image:</label>
