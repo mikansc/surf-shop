@@ -4,7 +4,12 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   name: String,
-  image: String,
+  image: {
+    secure_url: {
+      type: String, default: '/images/default-profile.jpg'
+    },
+    public_id: String
+  },
   email: { type: String, unique: true, require: true }
 });
 

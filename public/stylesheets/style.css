@@ -36,3 +36,7 @@ li {
   color: red;
 }
 
+.profile-image {
+  width: 100px;
+  border-radius: 50%;
+}
