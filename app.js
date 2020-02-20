@@ -13,7 +13,7 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 // const seedPosts = require("./seeds");
-// seedPosts();
+// seedPosts(); 
 
 //require routes
 const index = require("./routes/index");
@@ -69,7 +69,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // set local variables middleware
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   // req.user = {
   //   _id: "5e42de86f1b0b80ee869a9c0",
   //   username: "mika2"
@@ -93,12 +93,12 @@ app.use("/posts", posts);
 app.use("/posts/:id/reviews", reviews);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // // set locals, only providing error in development
   // res.locals.message = err.message;
   // res.locals.error = req.app.get("env") === "development" ? err : {};

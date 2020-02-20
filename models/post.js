@@ -25,9 +25,7 @@ const PostSchema = new Schema({
       require: true
     }
   },
-  properties: {
-    description: String
-  },
+  properties: { description: String },
   author: {
     type: Schema.Types.ObjectId,
     ref: "User"
@@ -44,15 +42,13 @@ const PostSchema = new Schema({
   }
 });
 
-PostSchema.pre("remove", async function() {
+PostSchema.pre("remove", async function () {
   await Review.deleteMany({
-    _id: {
-      $in: this.reviews
-    }
+    _id: { $in: this.reviews }
   });
 });
 
-PostSchema.methods.calculateAvgRating = function() {
+PostSchema.methods.calculateAvgRating = function () {
   let ratingsTotal = 0;
   if (this.reviews.length) {
     this.reviews.forEach(review => {
@@ -68,5 +64,5 @@ PostSchema.methods.calculateAvgRating = function() {
 };
 
 PostSchema.plugin(mongoosePaginate);
-
+PostSchema.index({ geometry: '2dsphere' });
 module.exports = mongoose.model("Post", PostSchema);

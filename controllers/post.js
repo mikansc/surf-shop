@@ -9,8 +9,9 @@ const { cloudinary } = require("../cloudinary");
 module.exports = {
   // POST Index
   async postIndex(req, res, nex) {
-    let posts = await Post.paginate(
-      {},
+    const { dbQuery } = res.locals;
+    delete res.locals.dbQuery;
+    let posts = await Post.paginate(dbQuery,
       {
         page: req.query.page || 1,
         limit: 10,
@@ -18,6 +19,9 @@ module.exports = {
       }
     );
     posts.page = Number(posts.page);
+    if (!posts.docs.length && res.locals.query) {
+      req.session.error = "No results match that query.";
+    }
     res.render("posts/index", {
       posts,
       mapBoxToken,
@@ -50,10 +54,10 @@ module.exports = {
     let post = new Post(req.body.post);
     post.properties.description = `<strong><a href="/posts/${post._id}">${
       post.title
-    }</a></strong><p>${post.location}</p><p>${post.description.substring(
-      0,
-      20
-    )}...</p>`;
+      }</a></strong><p>${post.location}</p><p>${post.description.substring(
+        0,
+        20
+      )}...</p>`;
     await post.save();
     req.session.success = "Post Created Successfully";
     res.redirect(`/posts/${post.id}`);
@@ -69,7 +73,8 @@ module.exports = {
         model: "User"
       }
     });
-    const floorRating = post.calculateAvgRating();
+    // const floorRating = post.calculateAvgRating();
+    const floorRating = post.avgRating;
     res.render("posts/show", { post, mapBoxToken, floorRating });
   },
 
@@ -127,10 +132,10 @@ module.exports = {
     post.price = req.body.post.price;
     post.properties.description = `<strong><a href="/posts/${post._id}">${
       post.title
-    }</a></strong><p>${post.location}</p><p>${post.description.substring(
-      0,
-      20
-    )}...</p>`;
+      }</a></strong><p>${post.location}</p><p>${post.description.substring(
+        0,
+        20
+      )}...</p>`;
     //save the updated post into the db
     await post.save();
     //redirect to show page
