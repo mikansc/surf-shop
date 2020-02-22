@@ -13,7 +13,7 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 // const seedPosts = require("./seeds");
-// seedPosts(); 
+// seedPosts();
 
 //require routes
 const index = require("./routes/index");
@@ -24,6 +24,7 @@ const app = express();
 
 // connect DB
 mongoose.connect("mongodb://localhost:27017/surf-shop", {
+  // mongoose.connect("mongodb+srv://michaelnsc:hO763sFRudHSPX0D@mkdev-lo7rc.gcp.mongodb.net/test?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,

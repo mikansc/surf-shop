@@ -1,10 +1,26 @@
 <% layout('layouts/boilerplate') %>
-<h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
-<div id="map"></div>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-3">Welcome to Surf Shop</h1>
+        <p class="lead">A place to find your surf board</p>
+        <hr class="my-2">
+        <p>Lets find your first surf board</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/posts" role="button">Go find</a>
+        </p>
+    </div>
+</div>
+<div class="container">
+    <div class="rounded-lg shadow p-3 mb-5 bg-white rounded p-2">
+        <h2 class="h3">Find your surf board</h2>
+        <div id="map"></div>
+    </div>
+</div>
 <script>
-  mapboxgl.accessToken = "<%= mapBoxToken %>";
-  let posts = {features: <%- JSON.stringify(posts) %>};
+    /* beautify preserve:start */
+    mapboxgl.accessToken = "<%= mapBoxToken %>";
+    let posts = { features: <%- JSON.stringify(posts) %> };
+    /* beautify preserve:end */
 </script>
 
 <script src="/javascripts/allPostsClusterMap.js"></script>

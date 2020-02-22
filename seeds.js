@@ -19,7 +19,12 @@ async function seedPosts() {
       },
       price: random1000,
       avgRating: random5,
-      author: "5e429175222d2522ec8312c1"
+      author: "5e429175222d2522ec8312c1",
+      images: [
+        {
+          url: 'https://res.cloudinary.com/devsprout/image/upload/v1561315599/surf-shop/surfboard.jpg'
+        }
+      ]
     };
     let post = new Post(postData);
     post.properties.description = `<strong><a href="/posts/${post._id}">${title}</a></strong>

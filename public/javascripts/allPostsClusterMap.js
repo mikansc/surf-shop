@@ -13,7 +13,7 @@ map.addControl(
   })
 );
 
-map.on("load", function() {
+map.on("load", function () {
   // Add a new source from our GeoJSON data and set the
   // 'cluster' option to true. GL-JS will add the point_count property to your source data.
   map.addSource("posts", {
@@ -73,7 +73,7 @@ map.on("load", function() {
     }
   });
 
-  map.on("click", "unclustered-point", function(e) {
+  map.on("click", "unclustered-point", function (e) {
     var coordinates = e.features[0].geometry.coordinates.slice();
     var description = e.features[0].properties.description;
 
@@ -91,12 +91,12 @@ map.on("load", function() {
   });
 
   // inspect a cluster on click
-  map.on("click", "clusters", function(e) {
+  map.on("click", "clusters", function (e) {
     var features = map.queryRenderedFeatures(e.point, { layers: ["clusters"] });
     var clusterId = features[0].properties.cluster_id;
     map
       .getSource("posts")
-      .getClusterExpansionZoom(clusterId, function(err, zoom) {
+      .getClusterExpansionZoom(clusterId, function (err, zoom) {
         if (err) return;
 
         map.easeTo({
@@ -106,10 +106,10 @@ map.on("load", function() {
       });
   });
 
-  var mouseenterCursor = function() {
+  var mouseenterCursor = function () {
     map.getCanvas().style.cursor = "pointer";
   };
-  var mouseLeaveCursor = function() {
+  var mouseLeaveCursor = function () {
     map.getCanvas().style.cursor = "";
   };
   map.on("mouseenter", "clusters", mouseenterCursor);
@@ -117,3 +117,8 @@ map.on("load", function() {
   map.on("mouseenter", "unclustered-point", mouseenterCursor);
   map.on("mouseleave", "unclustered-point", mouseLeaveCursor);
 });
+
+// Disable zoom from mouse scrollwheel
+map.scrollZoom.disable();
+//add zoom and rotation controls to the map
+map.addControl(new mapboxgl.NavigationControl());

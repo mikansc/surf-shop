@@ -1,9 +1,7 @@
 const Post = require("../models/post");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
-const geocodingClient = mbxGeocoding({
-  accessToken: process.env.MAPBOX_TOKEN
-});
+const geocodingClient = mbxGeocoding({ accessToken: process.env.MAPBOX_TOKEN });
 const { cloudinary } = require("../cloudinary");
 
 module.exports = {
@@ -14,13 +12,13 @@ module.exports = {
     let posts = await Post.paginate(dbQuery,
       {
         page: req.query.page || 1,
-        limit: 10,
+        limit: 12,
         sort: "-_id"
       }
     );
     posts.page = Number(posts.page);
     if (!posts.docs.length && res.locals.query) {
-      req.session.error = "No results match that query.";
+      res.locals.error = "No results match that query.";
     }
     res.render("posts/index", {
       posts,

@@ -1,11 +1,10 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+/* .logo {
+  color: #ffffff;
 }
 
-a {
-  color: #00b7ff;
-}
+.logo:hover {
+  color: #ffffff;
+} */
 
 #map {
   width: 100%;
@@ -17,26 +16,20 @@ a {
   font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  display: inline;
-  padding: 5px;
-}
-
-.color-green {
+/* .color-green {
   color: green;
 }
 
 .color-red {
   color: red;
-}
+} */
 
 .profile-image {
   width: 100px;
   border-radius: 50%;
+}
+
+.auth-box {
+  height: 85vh;
+  background-color: blanchedalmond;
 }

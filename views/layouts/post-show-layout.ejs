@@ -1,36 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title><%= title %></title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans"
-      rel="stylesheet"
-    />
-    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
-    <link
-      href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="stylesheet" href="/stylesheets/post-show.css" />
-    <link rel="stylesheet" href="/stylesheets/starability-basic.min.css" />
-  </head>
-  <body>
-    <% include ../partials/navbar %>
-    <!-- . -->
-    <% include ../partials/flash-messages %>
-    <!-- . -->
-    <%- body -%>
-    <script>
-      var post = <%- JSON.stringify(post) %>;
-    </script>
-    <script src="/javascripts/post-show.js"></script>
-    <script
-      src="https://kit.fontawesome.com/7872dcc455.js"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
+  <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/post-show.css" />
+  <link rel="stylesheet" href="/stylesheets/starability-basic.min.css" />
+</head>
+
+<body>
+  <% include ../partials/navbar %>
+  <% include ../partials/flash-messages %>
+  <%- body -%>
+  <script>
+    /* beautify preserve:start */
+        var post = <%- JSON.stringify(post)%>;
+    /* beautify preserve:end */
+  </script>
+  <script src="/javascripts/post-show.js"></script>
+  <script src="https://kit.fontawesome.com/7872dcc455.js" crossorigin="anonymous"></script>
+
+</body>
+
 </html>
