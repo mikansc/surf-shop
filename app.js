@@ -23,8 +23,8 @@ const reviews = require("./routes/reviews");
 const app = express();
 
 // connect DB
-mongoose.connect("mongodb://localhost:27017/surf-shop", {
-  // mongoose.connect("mongodb+srv://michaelnsc:hO763sFRudHSPX0D@mkdev-lo7rc.gcp.mongodb.net/test?retryWrites=true&w=majority", {
+// mongoose.connect("mongodb://localhost:27017/surf-shop", {
+mongoose.connect("mongodb+srv://michaelnsc:hO763sFRudHSPX0D@mkdev-lo7rc.gcp.mongodb.net/test?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
