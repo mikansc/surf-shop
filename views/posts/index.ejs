@@ -3,7 +3,7 @@
   <div class="col  m-0 p-0"> -->
 <div class="m-0 p-0">
   <!-- <div class="rounded-lg shadow p-3 mb-5 bg-white rounded p-2"> -->
-  <div id="map" class="shadow mt-4" style="height: 400px;"></div>
+  <div id="map" class="shadow mt-0 mt-md-4" style="height: 300px;"></div>
   <!-- </div> -->
   <!-- </div>
         </div> -->
@@ -13,21 +13,21 @@
   <% include ../partials/paginatePost %>
 
   <div class="row">
-    <div class="col-3">
+    <div class="col-md-3 mb-3 mb-md-2">
       <!-- <div class="col-4"> -->
       <% include ../partials/searchFilter %>
       <!-- </div> -->
     </div>
-    <div class="col-9">
+    <div class="col-md-9">
       <div class="row">
         <% posts.docs.forEach(function (post) { %>
-        <div class="col-4 mb-4">
-          <div class="card  h-100">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
             <img src="<%=post.images[0].url %>" class="card-img-top" alt="Image of <%= post.title %>">
             <div class="card-body">
               <h2 class="card-title"><%= post.title %></h2>
               <div class="card-text">Price: <%= post.price %></div>
-              <div class="card-text">Description: <%= post.description %></div>
+              <div class="card-text d-none d-sm-block">Description: <%= post.description %></div>
               <div class="card-text">Location: <%= post.location %></div>
             </div>
             <div class="card-footer">

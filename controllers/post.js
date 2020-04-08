@@ -12,7 +12,7 @@ module.exports = {
     let posts = await Post.paginate(dbQuery,
       {
         page: req.query.page || 1,
-        limit: 12,
+        limit: 9,
         sort: "-_id"
       }
     );

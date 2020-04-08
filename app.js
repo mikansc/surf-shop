@@ -23,8 +23,8 @@ const reviews = require("./routes/reviews");
 const app = express();
 
 // connect DB
-// mongoose.connect("mongodb://localhost:27017/surf-shop", {
-mongoose.connect("mongodb+srv://michaelnsc:hO763sFRudHSPX0D@mkdev-lo7rc.gcp.mongodb.net/test?retryWrites=true&w=majority", {
+mongoose.connect("mongodb://localhost:27017/surf-shop", {
+  // mongoose.connect(`mongodb+srv://${process.env.MONGO_ATLAS_ACCESS}@mkdev-lo7rc.gcp.mongodb.net/surshop?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -41,14 +41,9 @@ app.engine("ejs", engine);
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
 app.use(logger("dev"));
 app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true
-  })
-);
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public/images/", "favicon.ico")));
