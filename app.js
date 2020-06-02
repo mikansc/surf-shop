@@ -1,53 +1,52 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const createError = require("http-errors");
-const engine = require("ejs-mate");
-const express = require("express");
-const favicon = require("serve-favicon");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
-const passport = require("passport");
-const User = require("./models/user");
-const session = require("express-session");
-const mongoose = require("mongoose");
-const methodOverride = require("method-override");
+const createError = require('http-errors');
+const engine = require('ejs-mate');
+const express = require('express');
+const favicon = require('serve-favicon');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const passport = require('passport');
+const User = require('./models/user');
+const session = require('express-session');
+const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 // const seedPosts = require("./seeds");
 // seedPosts();
 
 //require routes
-const index = require("./routes/index");
-const posts = require("./routes/posts");
-const reviews = require("./routes/reviews");
+const index = require('./routes/index');
+const posts = require('./routes/posts');
+const reviews = require('./routes/reviews');
 
 const app = express();
 
 // connect DB
-mongoose.connect("mongodb://localhost:27017/surf-shop", {
-  // mongoose.connect(`mongodb+srv://${process.env.MONGO_ATLAS_ACCESS}@mkdev-lo7rc.gcp.mongodb.net/surshop?retryWrites=true&w=majority`, {
+mongoose.connect('mongodb://localhost:27017/surf-shop', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
   console.log("we're connected!");
 });
 
 // use ejs-locals for all ejs templates
-app.engine("ejs", engine);
+app.engine('ejs', engine);
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-app.use(logger("dev"));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(favicon(path.join(__dirname, "public/images/", "favicon.ico")));
-app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public/images/', 'favicon.ico')));
+app.use(methodOverride('_method'));
 
 // add moment to every view
 app.locals.moment = require('moment');
@@ -55,9 +54,9 @@ app.locals.moment = require('moment');
 // Configure passport and Sessions
 app.use(
   session({
-    secret: "campeao dos campeoes",
+    secret: 'campeao dos campeoes',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
   })
 );
 app.use(passport.initialize());
@@ -75,21 +74,21 @@ app.use(function (req, res, next) {
   // };
   res.locals.currentUser = req.user;
   //set default title
-  res.locals.title = "Surf Shop";
+  res.locals.title = 'Surf Shop';
   //set success flash message
-  res.locals.success = req.session.success || "";
+  res.locals.success = req.session.success || '';
   delete req.session.success;
   //set error flash message
-  res.locals.error = req.session.error || "";
+  res.locals.error = req.session.error || '';
   delete req.session.error;
   //continue to next function in middleware chain
   next();
 });
 
 // Mount routes
-app.use("/", index);
-app.use("/posts", posts);
-app.use("/posts/:id/reviews", reviews);
+app.use('/', index);
+app.use('/posts', posts);
+app.use('/posts/:id/reviews', reviews);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -107,7 +106,7 @@ app.use(function (err, req, res, next) {
   // res.render("error");
   console.log(err);
   req.session.error = err.message;
-  res.redirect("back");
+  res.redirect('back');
 });
 
 module.exports = app;
